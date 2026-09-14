@@ -1,5 +1,3 @@
-import { Context } from "hono";
-
 import { commonParseMail } from "../common";
 import { normalizeAddressDomain } from "../utils";
 import { storeRawMail } from "./storage";
@@ -120,7 +118,3 @@ export const internalForwardEmail = async (
         }
     }
 };
-
-export const getInternalForwardRulesForAdmin = async (
-    c: Context<HonoCustomType>
-): Promise<InternalForwardRule[]> => getInternalForwardRules(c.env);
