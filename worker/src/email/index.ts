@@ -9,6 +9,7 @@ import { check_if_junk_mail } from "./check_junk";
 import { remove_attachment_if_need } from "./check_attachment";
 import { extractEmailInfo } from "./ai_extract";
 import { forwardEmail } from "./forward";
+import { internalForwardEmail } from "./internal_forward";
 import { EmailRuleSettings } from "../models";
 import { CONSTANTS } from "../constants";
 import { storeRawMail } from "./storage";
@@ -78,6 +79,21 @@ async function email(message: ForwardableEmailMessage, env: Bindings, ctx: Execu
         console.error("save email error", error);
         return undefined;
     });
+
+    // copy matching messages to another local mailbox without affecting the original inbox
+    if (storedMailId !== undefined) {
+        try {
+            await internalForwardEmail(
+                env,
+                message.from,
+                toAddress,
+                message_id,
+                parsedEmailContext,
+            );
+        } catch (error) {
+            console.error("internal forward error", error);
+        }
+    }
 
     // forward email
     await forwardEmail(message, env);

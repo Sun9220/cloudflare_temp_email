@@ -20,6 +20,7 @@ import UserOauth2Settings from './admin/UserOauth2Settings.vue';
 import RoleAddressConfig from './admin/RoleAddressConfig.vue';
 import Mails from './admin/Mails.vue';
 import MailsUnknow from './admin/MailsUnknow.vue';
+import InternalForwardRules from './admin/InternalForwardRules.vue';
 import About from './common/About.vue';
 import Maintenance from './admin/Maintenance.vue';
 import DatabaseManager from './admin/DatabaseManager.vue';
@@ -190,6 +191,9 @@ onMounted(async () => {
           </n-tab-pane>
           <n-tab-pane name="sendMail" :tab="t('sendMail')">
             <SendMail />
+          </n-tab-pane>
+          <n-tab-pane name="internalForward" tab="内部转发">
+            <InternalForwardRules />
           </n-tab-pane>
           <n-tab-pane name="mailWebhook" :tab="t('mailWebhook')">
             <MailWebhook />
